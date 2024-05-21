@@ -1,10 +1,9 @@
 import React from "react";
 
-
 function LoginLayout() {
   return (
-    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-      <div className="container bg-white py-20">
+    <div class="flex  min-h-full flex-col justify-center md:items-center px-6 py-12 lg:px-8 md:bg-slate-50">
+      <form className="md:container bg-white md:p-20 md:w-auto rounded-3xl md:shadow-md">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
@@ -71,7 +70,7 @@ function LoginLayout() {
             </div>
           </form>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
