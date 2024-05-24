@@ -9,6 +9,7 @@ const routes = [
     {
         path: "/dashboard",
         element: <DashboardLayout />,
+        protected: true,
     }
 ];
 

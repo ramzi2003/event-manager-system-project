@@ -21,10 +21,9 @@ async function fetchData(url, options = {}) {
 
     console.log(refreshToken);
 
-    const refreshResponse = await fetch("http://10.121.4.111:8080/api/auth/refresh-token", {
+    const refreshResponse = await fetch("http://www.localhost:8000/auth/refresh", {
       method: "POST",
       headers: {
-        'Authorization': `Bearer ${refreshToken}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ refresh: refreshToken }), // Use the correct field name as per the API documentation
@@ -34,6 +33,7 @@ async function fetchData(url, options = {}) {
 
     if (refreshResponse.ok) {
       const data = await refreshResponse.json();
+
       localStorage.setItem("accessToken", data.access); // Make sure to use the correct property names from the response
 
       // Only update the refresh token if a new one is provided in the response
@@ -60,7 +60,7 @@ async function fetchData(url, options = {}) {
 function redirectToLogin() {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");
-  window.location.href = "/login"; // Adjust this if needed
+  window.location.href = "/"; // Adjust this if needed
 }
 
 export default fetchData;
