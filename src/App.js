@@ -5,7 +5,7 @@ import ProtectedRoute from "./utils/routes/protectedRoute";
 function App() {
   return (
     <Router>
-      <div>
+      <div className="bg-slate-400 h-[100vh]">
         <Routes>
           {routes.map((route, index) => {
             const Element = route.protected ? (

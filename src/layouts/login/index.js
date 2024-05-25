@@ -45,7 +45,7 @@ function LoginLayout() {
 
       const responseData = await tokenResponse.json();
 
-      console.log(responseData.access);
+    
 
       if (!responseData || !responseData.access) {
         throw new Error("Access token not found in response");

@@ -19,7 +19,7 @@ async function fetchData(url, options = {}) {
       return null;
     }
 
-    console.log(refreshToken);
+   
 
     const refreshResponse = await fetch("http://www.localhost:8000/auth/refresh", {
       method: "POST",
@@ -29,7 +29,7 @@ async function fetchData(url, options = {}) {
       body: JSON.stringify({ refresh: refreshToken }), // Use the correct field name as per the API documentation
     });
 
-    console.log(refreshResponse);
+   
 
     if (refreshResponse.ok) {
       const data = await refreshResponse.json();

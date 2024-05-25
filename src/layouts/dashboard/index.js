@@ -26,7 +26,7 @@ function DashboardLayout() {
         }
 
         const result = await response.json();
-        console.log(result);
+
         setDepartments(result);
         setError(null);
       } catch (error) {
@@ -41,25 +41,21 @@ function DashboardLayout() {
   return (
     <>
       <Sidebar />
-      <div className="p-4 sm:ml-64 bg-slate-50">
-        <div className="p-4  border-gray-200 rounded-lg dark:border-gray-700 ">
+      <div className="p-4 sm:ml-64">
           <div className="grid grid-cols-3 gap-4 mb-4">
             {departments.map((department) => (
-              <Link
-                to={`/department/${department.name}`}
-              >
+              <Link key={department.id} to={`/department/${department.name}`}>
                 <div
                   key={department.id} // Assuming each department has a unique ID
-                  className="flex items-center justify-center h-24 rounded-2xl bg-gray-50 dark:bg-gray-800"
+                  className="flex items-center justify-center h-24  max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
                 >
-                  <p className="text-xl text-white ">{department.name}</p>
+                  <p className="mb-2 text-lg tracking-tight text-gray-900 dark:text-white">{department.name}</p>
                 </div>
               </Link>
             ))}
           </div>
         </div>
-        
-      </div>
+ 
     </>
   );
 }

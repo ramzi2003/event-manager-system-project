@@ -2,47 +2,33 @@ import React, { useEffect, useState } from "react";
 import Logo from "../../assets/images/UCA_Logo.png";
 import { Link } from "react-router-dom";
 import fetchData from "../../utils/api/fetchData";
-import Modal from "../logoutModal/logoutModal";
+import { BsFillCalendar2EventFill } from "react-icons/bs";
+import { GrTasks } from "react-icons/gr";
 
 function Sidebar() {
   const [eventCount, setEventCount] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   useEffect(() => {
-    // Define the async function to fetch events
     const fetchEvents = async () => {
       try {
-        const response = await fetchData("http://localhost:8000/api/tasks"); // Replace with your API endpoint
+        const response = await fetchData("http://localhost:8000/api/tasks");
         const data = await response.json();
-
-        // Filter out events whose status is 'completed'
         const filteredEvents = data.filter(
           (event) => event.status !== "completed"
         );
-
-        // Set the count of filtered events
         setEventCount(filteredEvents.length);
       } catch (error) {
         console.error("Error fetching events:", error);
       }
     };
-
-    // Call the function to fetch events
     fetchEvents();
-  }, []); // Empty dependency array to run only once when the component mounts
+  }, []);
 
   const handleLogout = () => {
-    // Remove tokens from localStorage
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
-  };
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
+    // Add any additional logout logic here, like redirecting to login page
   };
 
   return (
@@ -83,7 +69,7 @@ function Sidebar() {
             </span>
           </div>
           <ul className="space-y-2 font-medium">
-            <li>
+            <li key="dashboard">
               <Link
                 to="/dashboard"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
@@ -101,9 +87,30 @@ function Sidebar() {
                 <span className="ms-3">Dashboard</span>
               </Link>
             </li>
-            <li>
-              <a
-                href="#"
+
+            <li key="create-event">
+              <Link
+                to="/create-event"
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
+                <BsFillCalendar2EventFill className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                <span className="ms-3">Create Event</span>
+              </Link>
+            </li>
+
+            <li key="create-task">
+              <Link
+                to="/create-task"
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
+                <GrTasks className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                <span className="ms-3">Create Task</span>
+              </Link>
+            </li>
+
+            <li key="tasks">
+              <Link
+                to="/tasks"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <svg
@@ -121,11 +128,11 @@ function Sidebar() {
                     {eventCount}
                   </span>
                 )}
-              </a>
+              </Link>
             </li>
-            <li>
-              <a
-                href="#"
+            <li key="users">
+              <Link
+                to="/users"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <svg
@@ -138,12 +145,13 @@ function Sidebar() {
                   <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
                 </svg>
                 <span className="flex-1 ms-3 whitespace-nowrap">Users</span>
-              </a>
+              </Link>
             </li>
-            <li
-              onClick={openModal}
-            >
-              <div className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <li key="logout">
+              <div
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group cursor-pointer"
+                onClick={() => setShowLogoutModal(true)}
+              >
                 <svg
                   className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                   aria-hidden="true"
@@ -162,10 +170,35 @@ function Sidebar() {
                 <span className="flex-1 ms-3 whitespace-nowrap">Log out</span>
               </div>
             </li>
-            {isModalOpen && <Modal/>}
           </ul>
         </div>
       </aside>
+
+      {showLogoutModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="bg-white p-4 rounded-lg shadow-lg">
+            <h2 className="text-md  mb-4">
+              Are you sure you want to log out?
+            </h2>
+            <div className="flex justify-end">
+              <button
+                className="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2 hover:bg-gray-400 active:bg-gray-500"
+                onClick={() => setShowLogoutModal(false)}
+              >
+                Cancel
+              </button>
+              <Link to="/">
+                <button
+                  className="bg-red-600 hover:bg-red-700 active:bg-red-50 text-white px-4 py-2 rounded"
+                  onClick={handleLogout}
+                >
+                  Log out
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
