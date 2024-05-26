@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import Logo from "../../assets/images/UCA_Logo.png";
 import { Link } from "react-router-dom";
 import fetchData from "../../utils/api/fetchData";
-import { BsFillCalendar2EventFill } from "react-icons/bs";
-import { GrTasks } from "react-icons/gr";
+
+import { RiAdminFill } from "react-icons/ri";
+
 
 function Sidebar() {
   const [eventCount, setEventCount] = useState(0);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false); // state for dropdown
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -29,6 +31,10 @@ function Sidebar() {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     // Add any additional logout logic here, like redirecting to login page
+  };
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
   };
 
   return (
@@ -88,24 +94,70 @@ function Sidebar() {
               </Link>
             </li>
 
-            <li key="create-event">
-              <Link
-                to="/create-event"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            <li>
+              <button
+                type="button"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                aria-controls="dropdown-example"
+                data-collapse-toggle="dropdown-example"
+                onClick={toggleDropdown}
               >
-                <BsFillCalendar2EventFill className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-                <span className="ms-3">Create Event</span>
-              </Link>
-            </li>
-
-            <li key="create-task">
-              <Link
-                to="/create-task"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <GrTasks className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-                <span className="ms-3">Create Task</span>
-              </Link>
+                <RiAdminFill className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
+                  Admin
+                </span>
+                <svg
+                  className="w-3 h-3"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 10 6"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m1 1 4 4 4-4"
+                  />
+                </svg>
+              </button>
+              {showDropdown && (
+                <ul id="dropdown-example" className="py-2 space-y-2">
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    >
+                      Create Event
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    >
+                      Create Task
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    >
+                      Add Venue
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    >
+                      Add User
+                    </a>
+                  </li>
+                </ul>
+              )}
             </li>
 
             <li key="tasks">
@@ -177,9 +229,7 @@ function Sidebar() {
       {showLogoutModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
           <div className="bg-white p-4 rounded-lg shadow-lg">
-            <h2 className="text-md  mb-4">
-              Are you sure you want to log out?
-            </h2>
+            <h2 className="text-md  mb-4">Are you sure you want to log out?</h2>
             <div className="flex justify-end">
               <button
                 className="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2 hover:bg-gray-400 active:bg-gray-500"
