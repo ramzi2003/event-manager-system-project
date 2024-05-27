@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../../../components/sidebar";
+import Sidebar from "../../components/sidebar";
 import { useParams } from "react-router-dom";
-import fetchData from "../../../utils/api/fetchData";
+import fetchData from "../../utils/api/fetchData";
 
 function DepartmentLayout() {
   const { id: departmentId } = useParams();
