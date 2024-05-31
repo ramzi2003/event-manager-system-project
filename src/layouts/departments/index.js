@@ -101,7 +101,7 @@ function DepartmentLayout() {
   }, [departmentId]);
 
   return (
-    <div className="p-4 sm:ml-64">
+    <div className="h-[100vh] p-4 sm:ml-64">
       <Sidebar />
       {error ? (
         <div className="text-red-500">Error: {error}</div>

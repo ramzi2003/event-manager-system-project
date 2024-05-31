@@ -37,9 +37,9 @@ function AddUser() {
   };
 
   return (
-    <>
-      <Sidebar />
-      <div className="p-4 sm:ml-64 flex justify-center items-center min-h-screen">
+    <div className="h-[100vh] p-4 sm:ml-64">
+    <Sidebar />
+      <div className="flex justify-center items-center min-h-screen">
         <div className="w-full max-w-xs">
           <form className="bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
             <div className="mb-4">
@@ -105,7 +105,7 @@ function AddUser() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

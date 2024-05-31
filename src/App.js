@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import routes from "./routes";
 import ProtectedRoute from "./utils/routes/protectedRoute";
+import Sidebar from "./components/sidebar";
 
 function App() {
   return (
     <Router>
-      <div className="bg-slate-400 h-[100vh]">
+      <div>
         <Routes>
           {routes.map((route, index) => {
             const Element = route.protected ? (

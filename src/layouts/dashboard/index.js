@@ -41,7 +41,7 @@ function DashboardLayout() {
   return (
     <>
       <Sidebar />
-      <div className="p-4 sm:ml-64">
+      <div className="h-[100vh] p-4 sm:ml-64">
           <div className="grid grid-cols-3 gap-4 mb-4">
             {departments.map((department) => (
               <Link key={department.id} to={`/department/${department.id}`}>
