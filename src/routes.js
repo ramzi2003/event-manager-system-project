@@ -3,7 +3,9 @@ import DashboardLayout from "./layouts/dashboard";
 import DepartmentLayout from "./layouts/departments";
 import AddUser from "./layouts/addUser/addUser";
 import Users from "./layouts/Users";
-import AddVenue from "./layouts/addVenue";
+import AddVenue from "./layouts/Venues/pages/addVenue";
+import Venues from "./layouts/Venues";
+import EditVenue from "./layouts/Venues/pages/editVenue";
 
 const routes = [
     {
@@ -33,6 +35,16 @@ const routes = [
     {
         path: "/add-venue",
         element: <AddVenue />,
+        protected: true,
+    },
+    {
+        path: "/venues",
+        element: <Venues />,
+        protected: true,
+    },
+    {
+        path: "/edit-venue/:id",
+        element: <EditVenue />,
         protected: true,
     }
 ];

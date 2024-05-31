@@ -5,7 +5,6 @@ import fetchData from "../../utils/api/fetchData";
 
 import { RiAdminFill } from "react-icons/ri";
 
-
 function Sidebar() {
   const [eventCount, setEventCount] = useState(0);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -140,12 +139,13 @@ function Sidebar() {
                       Create Task
                     </a>
                   </li>
+
                   <li>
                     <Link
-                      to="/add-venue"
+                      to="/venues"
                       className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >
-                      Add Venue
+                      Venues
                     </Link>
                   </li>
                   <li>
