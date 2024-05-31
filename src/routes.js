@@ -3,6 +3,7 @@ import DashboardLayout from "./layouts/dashboard";
 import DepartmentLayout from "./layouts/departments";
 import AddUser from "./layouts/addUser/addUser";
 import Users from "./layouts/Users";
+import AddVenue from "./layouts/addVenue";
 
 const routes = [
     {
@@ -27,6 +28,11 @@ const routes = [
     {
         path: "/users",
         element: <Users />,
+        protected: true,
+    },
+    {
+        path: "/add-venue",
+        element: <AddVenue />,
         protected: true,
     }
 ];
