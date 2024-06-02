@@ -6,6 +6,7 @@ import Users from "./layouts/Users";
 import AddVenue from "./layouts/Venues/pages/addVenue";
 import Venues from "./layouts/Venues";
 import EditVenue from "./layouts/Venues/pages/editVenue";
+import CreateEvent from "./layouts/createEvent";
 
 const routes = [
     {
@@ -45,6 +46,11 @@ const routes = [
     {
         path: "/edit-venue/:id",
         element: <EditVenue />,
+        protected: true,
+    },
+    {
+        path: "/create-event",
+        element: <CreateEvent />,
         protected: true,
     }
 ];
