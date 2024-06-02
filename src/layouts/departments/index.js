@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/sidebar";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import fetchData from "../../utils/api/fetchData";
 
 function DepartmentLayout() {
@@ -9,6 +9,7 @@ function DepartmentLayout() {
   const [departmentData, setDepartmentData] = useState([]);
   const [eventData, setEventData] = useState([]);
   const [venueData, setVenueData] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDepartmentData = async () => {
@@ -100,6 +101,29 @@ function DepartmentLayout() {
     fetchEvents();
   }, [departmentId]);
 
+  const handleDelete = async (eventId) => {
+    try {
+      const response = await fetchData(
+        `http://localhost:8000/api/events/${eventId}/`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete event");
+      }
+
+      // Update the state to remove the deleted event
+      setEventData(eventData.filter((event) => event.id !== eventId));
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
     <div className="h-[100vh] p-4 sm:ml-64">
       <Sidebar />
@@ -140,11 +164,11 @@ function DepartmentLayout() {
               <p className="text-gray-700 dark:text-gray-400">
                 Importance:{" "}
                 {event.importance === "high" ? (
-                  <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+                  <span className="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
                     {event.importance}
                   </span>
                 ) : event.importance === "medium" ? (
-                  <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
+                  <span className="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
                     {event.importance}
                   </span>
                 ) : (
@@ -156,13 +180,15 @@ function DepartmentLayout() {
               </p>
               <button
                 type="button"
-                class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-400 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-400 dark:focus:ring-gray-800"
+                className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-400 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-400 dark:focus:ring-gray-800"
+                onClick={() => navigate(`/edit-event/${event.id}`)}
               >
                 Edit
               </button>
               <button
                 type="button"
-                class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                onClick={() => handleDelete(event.id)}
               >
                 Delete
               </button>
