@@ -14,7 +14,7 @@ function EditVenue() {
   useEffect(() => {
     const fetchVenueData = async () => {
       try {
-        const response = await fetchData(`http://localhost:8000/api/venues/${id}/`, {
+        const response = await fetchData(`http://10.121.4.116:8000/api/venues/${id}/`, {
           method: "GET",
           headers: {
             "Authorization": "Bearer " + localStorage.getItem("accessToken"),
@@ -46,7 +46,7 @@ function EditVenue() {
     };
 
     try {
-      const response = await fetchData(`http://localhost:8000/api/venues/${id}/`, {
+      const response = await fetchData(`http://10.121.4.116:8000/api/venues/${id}/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

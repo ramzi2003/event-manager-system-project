@@ -29,7 +29,7 @@ function EditEvent() {
     const fetchDepartments = async () => {
       try {
         const response = await fetchData(
-          "http://localhost:8000/api/departments/"
+          "http://10.121.4.116:8000/api/departments/"
         );
         const data = await response.json();
         setDepartments(data);
@@ -40,7 +40,7 @@ function EditEvent() {
 
     const fetchVenues = async () => {
       try {
-        const response = await fetchData("http://localhost:8000/api/venues/");
+        const response = await fetchData("http://10.121.4.116:8000/api/venues/");
         const data = await response.json();
         setVenues(data);
       } catch (error) {
@@ -50,7 +50,7 @@ function EditEvent() {
 
     const fetchEvent = async () => {
       try {
-        const response = await fetchData(`http://localhost:8000/api/events/${id}`);
+        const response = await fetchData(`http://10.121.4.116:8000/api/events/${id}`);
         const data = await response.json();
 
         const formatDate = (date) => {
@@ -97,7 +97,7 @@ function EditEvent() {
     
 
     try {
-      const response = await fetchData(`http://localhost:8000/api/events/${id}/`, {
+      const response = await fetchData(`http://10.121.4.116:8000/api/events/${id}/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -15,7 +15,7 @@ function Venues() {
     const fetchVenues = async () => {
       try {
         const response = await fetchData(
-          "http://localhost:8000/api/venues/",
+          "http://10.121.4.116:8000/api/venues/",
           {
             method: "GET",
             headers: {
@@ -45,7 +45,7 @@ function Venues() {
   const handleDelete = async (id) => {
     try {
       const response = await fetchData(
-        `http://localhost:8000/api/venues/${id}/`,
+        `http://10.121.4.116:8000/api/venues/${id}/`,
         {
           method: "DELETE",
           headers: {

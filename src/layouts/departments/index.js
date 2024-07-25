@@ -15,7 +15,7 @@ function DepartmentLayout() {
     const fetchDepartmentData = async () => {
       try {
         const response = await fetchData(
-          `http://localhost:8000/api/departments/${departmentId}`,
+          `http://10.121.4.116:8000/api/departments/${departmentId}`,
           {
             method: "GET",
             headers: {
@@ -37,7 +37,7 @@ function DepartmentLayout() {
 
     const fetchEvents = async () => {
       try {
-        const response = await fetchData("http://localhost:8000/api/events/", {
+        const response = await fetchData("http://10.121.4.116:8000/api/events/", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -68,7 +68,7 @@ function DepartmentLayout() {
         const uniqueVenueIds = [...new Set(venueIds)];
         const venueResponses = await Promise.all(
           uniqueVenueIds.map((id) =>
-            fetchData(`http://localhost:8000/api/venues/${id}`, {
+            fetchData(`http://10.121.4.116:8000/api/venues/${id}`, {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
@@ -104,7 +104,7 @@ function DepartmentLayout() {
   const handleDelete = async (eventId) => {
     try {
       const response = await fetchData(
-        `http://localhost:8000/api/events/${eventId}/`,
+        `http://10.121.4.116:8000/api/events/${eventId}/`,
         {
           method: "DELETE",
           headers: {
